@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document\</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+
+  <style>
+    svg {
+      font: 12px sans-serif;
+      background-color: #eee;
+      text-align: right;
+      padding: 3px;
+      margin: 1px;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <% var width = 600; %>
+  <% var height = 400; %>
+  <% var padding = 30; %>
+
+  Aの得票数：<%= JSON.stringify(cnt["a_num"]) %> <br>
+  Bの得票数：<%= JSON.stringify(cnt["b_num"]) %>
+  <br><br>
+  <%= JSON.stringify(vote) %>
+  <br><br><br><br>
+  <div id="stage"></div>
+  <!--<script>
+    var data = [
+      { label: "A", y: 2 },
+      { label: "B", y: 5 }
+    ];
+    var stage = document.getElementById("stage");
+    var chart = new CanvasJS.Chart(stage, {
+      title: {
+        text: "投票率"
+      },
+      theme: "theme4",
+      data: [{
+        type: "column",
+        dataPoints: data
+      }]
+    });
+    chart.render(); 
+  </script>
+-->
+</body>
+
+</html>

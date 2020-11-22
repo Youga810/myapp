@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index</title>
+  <style type="text/css">
+    #post {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 300px;
+      margin: -150px 0px 0px -200px;
+
+    }
+
+    body {
+      background-color: cadetblue;
+    }
+  </style>
+
+</head>
+
+<body>
+  id: <%- id %>
+
+  <div id="post">
+    <h1>投票してください。</h1>
+    <form action="/submitted" method="post">
+      <input type="hidden" name="id" value=<%- id %>>
+      <input type="radio" name="candidate" value="A">A
+      <input type="radio" name="candidate" value="B">B
+      <input type="submit" value="投票">
+    </form>
+  </div>
+</body>
+
+</html>
