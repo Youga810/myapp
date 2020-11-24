@@ -13,6 +13,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
+    "jsencrypt": "git+https://github.com/travist/jsencrypt.git",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11",
     "secp256k1": "^4.0.2",

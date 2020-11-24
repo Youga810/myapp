@@ -1,5 +1,5 @@
 var express = require('express');
-
+const crypto = require('crypto');
 
 var router = express.Router();
 var ca = require('../ca');
@@ -28,14 +28,26 @@ router.post('/vote', function (req, res, next) {
   var session = req.session;
   if (ca.login(req.body.id, req.body.password)) {
     session.user_id = req.body.id;
-    var key = ca.create_private_key(session.user_id);
+    //var key = ca.create_private_key(session.user_id);
     //秘密鍵、公開鍵作成
-    session.private_key = JSON.stringify(key.toJSON());
-    session.public_key = ca.create_publickey(key);
+    //var private_key = JSON.stringify(key.toJSON());
+    //var public_key = ca.create_publickey(key);
+
+    const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', {
+      namedCurve: 'sect239k1'
+    });
+    // console.log('秘密鍵：', privateKey);
+    // console.log('公開鍵：', publicKey);
+    const sign = crypto.createSign('SHA256');
+    sign.update('some data to sign');
+    sign.end();
+    const signature = sign.sign(privateKey, 'hex');
     res.render('vote',
       {
         id: session.user_id,
-        password: req.body.password
+        password: req.body.password,
+        publicKey: publicKey,
+        signature: signature
       });
   } else {
     res.redirect('/');
@@ -53,6 +65,9 @@ router.get('/result_view', function (req, res, next) {
 });
 
 router.post('/submitted', function (req, res, next) {
+
+
+  ca.verify(req.body.publicKey, req.body.signature);
   if (!vote.idcheck(req.body.id)) {
 
     res.render('submitted', { name: '' });
