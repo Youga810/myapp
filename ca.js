@@ -18,12 +18,12 @@ CA.login = function (id, password) {
 
 
 CA.verify = function (publicKey, signature) {
-  console.log(publicKey);
-  console.log(signature);
-  const verify = crypto.createVerify('SHA256');
-  verify.update('some data to sign');
-  verify.end();
-  console.log(verify.verify(publicKey, signature, 'hex'));
+  //console.log(publicKey);
+  //console.log(signature);
+  //const verify = crypto.createVerify('SHA256');
+  //verify.update('some data to sign');
+  //verify.end();
+  //console.log(verify.verify(publicKey, signature, 'hex'));
 }
 //CA.create_private_key = function (id) {
 //  const bits = 2048;

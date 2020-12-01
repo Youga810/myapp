@@ -11,12 +11,12 @@ app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bo
 /* GET users listing. */
 //app.js:25で呼ばれ、users/フォルダのみ作動するという意味
 
-router.get('/', function (req, res, next) {
-  //current_chain = JSON.stringify(vote.chain)
-  //json_chain = JSON.parse(current_chain);
-  res.render('submitted', { name: '投稿されてない' });
-
-});
+//router.get('/', function (req, res, next) {
+//  //current_chain = JSON.stringify(vote.chain)
+//  //json_chain = JSON.parse(current_chain);
+//  res.render('submitted', { name: '投稿されてない' });
+//
+//});
 
 //router.post('/', function (req, res, next) {
 //  //console.log(req.body.name);

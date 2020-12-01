@@ -1,6 +1,4 @@
 var express = require('express');
-const crypto = require('crypto');
-
 var router = express.Router();
 var ca = require('../ca');
 
@@ -33,21 +31,15 @@ router.post('/vote', function (req, res, next) {
     //var private_key = JSON.stringify(key.toJSON());
     //var public_key = ca.create_publickey(key);
 
-    const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', {
-      namedCurve: 'sect239k1'
-    });
-    // console.log('秘密鍵：', privateKey);
+    //console.log('秘密鍵：', JSON.stringify(req.body.private_key));
     // console.log('公開鍵：', publicKey);
-    const sign = crypto.createSign('SHA256');
-    sign.update('some data to sign');
-    sign.end();
-    const signature = sign.sign(privateKey, 'hex');
+
+
+
     res.render('vote',
       {
         id: session.user_id,
         password: req.body.password,
-        publicKey: publicKey,
-        signature: signature
       });
   } else {
     res.redirect('/');
@@ -67,18 +59,32 @@ router.get('/result_view', function (req, res, next) {
 router.post('/submitted', function (req, res, next) {
 
 
-  ca.verify(req.body.publicKey, req.body.signature);
+  //ca.verify(req.body.publicKey, req.body.signature);
   if (!vote.idcheck(req.body.id)) {
 
     res.render('submitted', { name: '' });
   } else {
-    vote.createNewTransaction(req.body.id, req.body.candidate);
+    //電子署名
+    var sign = vote.signTransaction(req.body.candidate, req.body.private_key);
+    var isValid = vote.verifyTransaction(req.body.candidate, sign);
+    if (isValid) {
+      vote.createNewTransaction(req.body.id, req.body.candidate);
+
+    } else {
+      console.log('電子署名に失敗しました。');
+      return res.render('error', { message: '電子署名に失敗しました。' });
+    }
+
+    res.render('submitted', { name: req.body.candidate });
+
+
+
 
     //previous_hash = vote.getLastBlock()['previous_hash']
     console.log(req.body.id);
     //vote.getLastBlock();
     //vote.mining();
-    res.render('submitted', { name: req.body.candidate });
+
     //console.log(vote.getLastBlock()['transaction']);
   }
 });
