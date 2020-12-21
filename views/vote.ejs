@@ -20,23 +20,36 @@
       background-color: cadetblue;
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.20/jsrsasign-all-min.js"></script>
+  <script language="JavaScript" type="text/javascript">
+    function doSign() {
+      var rsa = new RSAKey();
+      rsa.readPrivateKeyFromPEMString(document.form1.private_key.value);
+      var hashAlg = 'sha1';
+      var hSig = rsa.sign(document.form1.candidate.value, hashAlg);
+      document.form1.siggenerated.value = linebrk(hSig, 64);
+    }
+  </script>
 
 </head>
 
 <body>
   id: <%- id %>
 
-  <div id="post">
-    <h1>投票してください。</h1>
-    <form action="/submitted" method="post">
-      <input type="hidden" name="id" value=<%- id %>>
-      <input type="radio" name="candidate" value="A">A
-      <input type="radio" name="candidate" value="B">B
-      秘密鍵：<br>
-      <textarea name="private_key" cols="30" rows="10"></textarea>
-      <input type="submit" value="投票">
-    </form>
-  </div>
+    <div id="post">
+      <h1>投票してください。</h1>
+      <form action="/submitted" method="post" name="form1">
+        <input type="hidden" name="id" value=<%- id %>>
+        <input type="radio" name="candidate" value="A">A
+        <input type="radio" name="candidate" value="B">B
+        秘密鍵：<br>
+        <textarea name="private_key" cols="30" rows="10"></textarea>
+        <textarea name="siggenerated"></textarea>
+        <!--<input type="file" name="private_key" size=10 accept=".key"></file> -->
+        <input type="submit" value="投票">
+      </form>
+    </div>
+    <input type="button" value="Sign to this message &darr;" onClick="doSign();" /><br />
 </body>
 
 </html>

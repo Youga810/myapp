@@ -58,15 +58,17 @@ router.get('/result_view', function (req, res, next) {
 
 router.post('/submitted', function (req, res, next) {
 
-
+  var session = req.session;
+  console.log(req.body.private_key);
   //ca.verify(req.body.publicKey, req.body.signature);
   if (!vote.idcheck(req.body.id)) {
 
     res.render('submitted', { name: '' });
   } else {
     //電子署名
-    var sign = vote.signTransaction(req.body.candidate, req.body.private_key);
-    var isValid = vote.verifyTransaction(req.body.candidate, sign);
+    //var sign = vote.signTransaction(req.body.candidate, req.body.private_key);
+    var sign = req.body.siggenerated;
+    var isValid = vote.verifyTransaction(req.body.candidate, sign, session.user_id);
     if (isValid) {
       vote.createNewTransaction(req.body.id, req.body.candidate);
 

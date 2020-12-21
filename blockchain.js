@@ -1,7 +1,7 @@
 const sha256 = require('sha256');
 var rs = require('jsrsasign');
 var rsu = require('jsrsasign-util');
-
+const fs = require('fs');
 class Blockchain {
   constructor() {
     this.chain = [];
@@ -104,35 +104,27 @@ class Blockchain {
     }
     return true;
   }
+  //クライアント側で計算させないと盗聴の恐れあり
+  //signTransaction(candidate, private_key) {
+  //  //signature作成
+  //  var rsa = new rs.RSAKey();
+  //  rsa.readPrivateKeyFromPEMString(private_key);
+  //  var hashAlg = 'sha1';
+  //  var hSig = rsa.sign(candidate, hashAlg);
+  //  return rs.linebrk(hSig, 64);
+  //}
 
-  signTransaction(candidate, private_key) {
-    //signature作成
-    var rsa = new rs.RSAKey();
-    rsa.readPrivateKeyFromPEMString(private_key);
-    var hashAlg = 'sha1';
-    var hSig = rsa.sign(candidate, hashAlg);
-    return rs.linebrk(hSig, 64);
-  }
 
 
-
-  verifyTransaction(candidate, hsig) {
-    var publickey =
-      `-----BEGIN CERTIFICATE-----
-      MIIBvTCCASYCCQD55fNzc0WF7TANBgkqhkiG9w0BAQUFADAjMQswCQYDVQQGEwJK
-      UDEUMBIGA1UEChMLMDAtVEVTVC1SU0EwHhcNMTAwNTI4MDIwODUxWhcNMjAwNTI1
-      MDIwODUxWjAjMQswCQYDVQQGEwJKUDEUMBIGA1UEChMLMDAtVEVTVC1SU0EwgZ8w
-      DQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANGEYXtfgDRlWUSDn3haY4NVVQiKI9Cz
-      Thoua9+DxJuiseyzmBBe7Roh1RPqdvmtOHmEPbJ+kXZYhbozzPRbFGHCJyBfCLzQ
-      fVos9/qUQ88u83b0SFA2MGmQWQAlRtLy66EkR4rDRwTj2DzR4EEXgEKpIvo8VBs/
-      3+sHLF3ESgAhAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAEZ6mXFFq3AzfaqWHmCy1
-      ARjlauYAa8ZmUFnLm0emg9dkVBJ63aEqARhtok6bDQDzSJxiLpCEF6G4b/Nv/M/M
-      LyhP+OoOTmETMegAVQMq71choVJyOFE5BtQa6M/lCHEOya5QUfoRF2HF9EjRF44K
-      3OK+u3ivTSj3zwjtpudY5Xo=
-      -----END CERTIFICATE-----
-      
-    
-    `;
+  verifyTransaction(candidate, hsig, id) {
+    //jsonデータをそのまま読み込む
+    var user_data = JSON.parse(fs.readFileSync('./user_data.json', 'utf8'));
+    var publickey;
+    console.log("id", id);
+    user_data.forEach(element => {
+      if (id == element.id) publickey = element.publickey;
+    });
+    console.log(publickey);
     var pubKey = rs.KEYUTIL.getKey(publickey);
     return pubKey.verify(candidate, hsig);
   }
