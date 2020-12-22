@@ -2,6 +2,7 @@ const sha256 = require('sha256');
 var rs = require('jsrsasign');
 var rsu = require('jsrsasign-util');
 const fs = require('fs');
+var app = require('../app');
 class Blockchain {
   constructor() {
     this.chain = [];
@@ -54,7 +55,7 @@ class Blockchain {
     //console.log(this);
     var start = setInterval(() => {
       //console.log(JSON.stringify(vote));
-      if (vote.transaction_pool.length != 0) {
+      if (vote.transaction_pool.length != 0 && Date.now() < app.end_time) {
         vote.mining();
       }
     }, 5000)

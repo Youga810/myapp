@@ -11,7 +11,8 @@ var Blockchain = require('./blockchain');
 var vote = new Blockchain();
 vote.startmining();
 //console.log(vote);
-
+console.log('now:', Date.now());
+exports.end_time = Date.now() + 100000;// 100秒後に閉鎖
 var app = express();
 
 //session使用
@@ -26,7 +27,7 @@ app.use(session({
 
 
 
-const port = 3000
+const port = 3000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -8,8 +8,9 @@ const user_data = JSON.parse(fs.readFileSync('./user_data.json', 'utf8'));
 var CA = {};
 CA.login = function (id, password) {
   var login_flag = false;
+  var hash_pass = crypto.createHash('sha256').update(password).digest('hex');
   user_data.forEach(element => {
-    if (id == element.id && password == element.password) {
+    if (id == element.id && hash_pass == element.password) {
       login_flag = true;
     }
   });

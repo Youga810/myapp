@@ -1,7 +1,7 @@
 var express = require('express');
+var app = require('../app');
 var router = express.Router();
 var ca = require('../ca');
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -13,6 +13,8 @@ router.get('/', function (req, res, next) {
 router.get('/vote', function (req, res, next) {
   console.log('voteに来たヨ！get!!')
   var session = req.session;
+  console.log(Date.now());
+  console.log(app.end_time);
   //if (!!session.visitCount) {
   //  session.visitCount += 1;
   //} else {
@@ -50,9 +52,16 @@ router.post('/vote', function (req, res, next) {
 router.get('/result_view', function (req, res, next) {
   //current_chain = JSON.stringify(vote.chain)
   //json_chain = JSON.parse(current_chain);
-  var cnt = vote.cnt();
-  console.log(cnt["a_num"])
-  res.render('result_view', { vote: vote.chain, cnt: cnt })
+  console.log(Date.now());
+  if (Date.now() > 1608658810885) {
+
+    var cnt = vote.cnt();
+    res.render('result_view', { vote: vote.chain, cnt: cnt })
+  } else {
+    res.render('error', {})
+
+  }
+
 
 });
 
