@@ -2,7 +2,7 @@ const sha256 = require('sha256');
 var rs = require('jsrsasign');
 var rsu = require('jsrsasign-util');
 const fs = require('fs');
-var app = require('../app');
+var app = require('./app');
 class Blockchain {
   constructor() {
     this.chain = [];
@@ -49,12 +49,14 @@ class Blockchain {
     }
     return nonce;
   }
-
+  //24時間でマイニングしなくなる
   startmining() {
     //var self = this;
     //console.log(this);
     var start = setInterval(() => {
       //console.log(JSON.stringify(vote));
+      console.log(Date.now());
+      console.log(app.end_time);
       if (vote.transaction_pool.length != 0 && Date.now() < app.end_time) {
         vote.mining();
       }
