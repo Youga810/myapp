@@ -8,8 +8,13 @@
 </head>
 
 <body>
-  <h1><%- message %></h1>
-  <a href="/">タイトル</a>
+  <h1>
+    <%- message %>
+  </h1>
+  <% if(locals.open_time){ %>
+    開票まで：<%- open_time / 1000 %> 秒<br>
+      <% } %>
+        <a href="/">タイトル</a>
 </body>
 
 </html>

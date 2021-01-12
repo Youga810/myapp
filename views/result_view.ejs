@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document\</title>
+  <title>vote_result</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
 
   <style>
@@ -20,17 +20,18 @@
 </head>
 
 <body>
-  <% var width = 600; %>
-  <% var height = 400; %>
-  <% var padding = 30; %>
+  <h1>開票結果</h1>
+  <% var width=600; %>
+    <% var height=400; %>
+      <% var padding=30; %>
 
-  Aの得票数：<%= JSON.stringify(cnt["a_num"]) %> <br>
-  Bの得票数：<%= JSON.stringify(cnt["b_num"]) %>
-  <br><br>
-  <%= JSON.stringify(vote) %>
-  <br><br><br><br>
-  <div id="stage"></div>
-  <!--<script>
+        Aの得票数：<%= JSON.stringify(cnt["a_num"]) %> <br>
+          Bの得票数：<%= JSON.stringify(cnt["b_num"]) %>
+            <br><br>
+            <%= JSON.stringify(vote) %>
+              <br><br><br><br>
+              <div id="stage"></div>
+              <!--<script>
     var data = [
       { label: "A", y: 2 },
       { label: "B", y: 5 }

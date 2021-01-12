@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>index</title>
+  <title>vote</title>
   <style type="text/css">
     #post {
       position: absolute;
@@ -44,12 +44,11 @@
         <input type="radio" name="candidate" value="B">B
         秘密鍵：<br>
         <textarea name="private_key" cols="30" rows="10"></textarea>
-        <textarea name="siggenerated"></textarea>
+        <input type="hidden" name="siggenerated">
         <!--<input type="file" name="private_key" size=10 accept=".key"></file> -->
-        <input type="submit" value="投票">
+        <input type="submit" value="投票" onClick="doSign();">
       </form>
     </div>
-    <input type="button" value="Sign to this message &darr;" onClick="doSign();" /><br />
 </body>
 
 </html>
