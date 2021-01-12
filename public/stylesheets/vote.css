@@ -1,0 +1,87 @@
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body{
+  margin: 0;
+  height: 100%;
+}
+
+.header{
+  background-color: #615b5b;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  position: relative;
+}
+
+h1.title{
+  margin-block-start: 0;
+  margin-block-end: 0;
+  float: left;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+}
+
+p.id{
+  text-align: right;
+}
+
+.post {
+  width: 500px;
+  margin: auto;
+  text-align: center;
+  background-color: #e2e2e2;
+}
+
+.vote{
+  padding: 20px 40px;
+  color:#615b5b;;
+}
+
+textarea{
+  width: 398px;
+  height: 398px;
+  padding: 0;
+}
+input[type="submit"]{
+  background-color:#0099FF;
+  border: none;
+  color: white;
+  transition: background-color .5s;
+  cursor        : pointer;
+  margin-top: 20px;
+  height: 50px;
+  width: 200px;
+  margin-bottom: 10px;
+  height: 50px;
+}
+input[type="submit"]:hover{
+  background-color:#003cff;
+  border: none;
+  color: white;
+
+  height: 50px;
+}
+
+.radio_cls{
+  padding-bottom: 10px;
+}
+
+input[type="radio"]{
+  width: 3em;
+  height: 3em;
+}
+
+.radio_btn_char{
+  font-size: xx-large;
+  padding: 13px;
+}
+
+p{
+  font-size: large;
+  padding-top: 10px;
+  font-weight:bold;
+}

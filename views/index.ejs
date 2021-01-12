@@ -5,16 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>login</title>
+  <link rel='stylesheet' href='/stylesheets/index.css' />
+
 </head>
 
 <body>
-  ログイン画面
-  <form action="/vote" method="post">
-    <input type="text" name="id" placeholder="id">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="確認">
-
-  </form>
+  <div class="wrap">
+    <h1>VoteApp</h1>
+    <form action="/vote" method="post">
+      <div>
+        <input type="text" name="id" placeholder="id" class="id">
+      </div>
+      <div><input type="password" name="password" placeholder="password" class="password"></div>
+      <input type="submit" value="ログイン">
+    </form>
+  </div>
 </body>
 
 </html>

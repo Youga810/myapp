@@ -12,7 +12,7 @@ var vote = new Blockchain();
 vote.startmining();
 //console.log(vote);
 console.log('now:', Date.now());
-exports.end_time = Date.now() + 100000;// 100秒後に閉鎖
+exports.end_time = Date.now() + 1000000000;// 100秒後に閉鎖
 var app = express();
 
 //session使用

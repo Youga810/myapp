@@ -5,21 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>vote</title>
-  <style type="text/css">
-    #post {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 400px;
-      height: 300px;
-      margin: -150px 0px 0px -200px;
-
-    }
-
-    body {
-      background-color: cadetblue;
-    }
-  </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.20/jsrsasign-all-min.js"></script>
   <script language="JavaScript" type="text/javascript">
     function doSign() {
@@ -30,25 +15,39 @@
       document.form1.siggenerated.value = linebrk(hSig, 64);
     }
   </script>
+  <link rel='stylesheet' href='/stylesheets/vote.css' />
 
 </head>
 
 <body>
-  id: <%- id %>
+  <div class="header">
+    <h1 class="title">VoteApp</h1>
+    <p class="id">id: <%- id %>
+    </p>
+  </div>
 
-    <div id="post">
-      <h1>投票してください。</h1>
-      <form action="/submitted" method="post" name="form1">
-        <input type="hidden" name="id" value=<%- id %>>
-        <input type="radio" name="candidate" value="A">A
-        <input type="radio" name="candidate" value="B">B
-        秘密鍵：<br>
-        <textarea name="private_key" cols="30" rows="10"></textarea>
-        <input type="hidden" name="siggenerated">
-        <!--<input type="file" name="private_key" size=10 accept=".key"></file> -->
-        <input type="submit" value="投票" onClick="doSign();">
-      </form>
-    </div>
+
+  <h1 class="vote">投票画面</h1>
+  <div class="post">
+    <form action="/submitted" method="post" name="form1">
+      <input type="hidden" name="id" value=<%- id %>>
+      <div class="radio_cls">
+        <p>①立候補者</p>
+        <span class="radio_btn_char">A</span>
+        <span class="radio_btn_char">B</span>
+        <div>
+          <input type="radio" name="candidate" value="A">
+          <input type="radio" name="candidate" value="B">
+        </div>
+
+      </div>
+      <p>②あなたの秘密鍵</p>
+      <textarea name="private_key"></textarea>
+      <input type="hidden" name="siggenerated">
+      <!--<input type="file" name="private_key" size=10 accept=".key"></file> -->
+      <div><input type="submit" value="投票" onClick="doSign();"></div>
+    </form>
+  </div>
 </body>
 
 </html>
