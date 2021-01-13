@@ -87,7 +87,7 @@ router.post('/submitted', function (req, res, next) {
     } else {
       //電子署名
       //var sign = vote.signTransaction(req.body.candidate, req.body.private_key);
-      var sign = req.body.siggenerated;
+      var sign = req.body.signature;
       var isValid = vote.verifyTransaction(req.body.candidate, sign, session.user_id);
       if (isValid) {
         vote.createNewTransaction(req.body.id, req.body.candidate);
