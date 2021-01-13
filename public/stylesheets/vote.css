@@ -85,3 +85,7 @@ p{
   padding-top: 10px;
   font-weight:bold;
 }
+
+input,textarea{
+  border-radius: 5px;
+}
