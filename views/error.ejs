@@ -5,17 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>error</title>
+  <link rel='stylesheet' href='/stylesheets/error.css' />
+
 </head>
 
 <body>
   <h1>
     <%- message %>
   </h1>
-  <% if(locals.open_time){ %>
-    開票まで：<%- open_time / 1000 %> 秒<br>
+  <div class="content">
+    <% if(locals.open_time){ %>
+
+      <div class="open_time">開票まで：<%- parseInt(open_time / 1000) %> 秒</div>
       <% } %>
         <a href="/">タイトル</a>
         <a href="/vote">投票に戻る</a>
+  </div>
 </body>
 
 </html>

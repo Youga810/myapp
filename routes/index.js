@@ -82,7 +82,7 @@ router.get('/result_view', function (req, res, next) {
     var cnt = vote.cnt();
     res.render('result_view', { vote: vote.chain, cnt: cnt })
   } else {
-    res.render('error', { message: '集計中です。', open_time: app.end_time - Date.now() })
+    res.render('error', { message: '集計中です', open_time: app.end_time - Date.now() })
 
   }
 
@@ -113,9 +113,7 @@ router.post('/submitted', function (req, res, next) {
           console.log(vote.chain);
 
         } else {
-
-          console.log('電子署名に失敗しました。');
-          return res.render('error', { message: '電子署名に失敗しました。' });
+          return res.render('error', { message: '電子署名に失敗しました' });
         }
         res.render('submitted', { id: session.user_id, name: req.body.candidate });
 
@@ -139,7 +137,7 @@ router.get('/submitted', function (req, res, next) {
   if (!vote.idcheck(session.user_id)) {
     res.render('submitted', { id: req.body.id, name: '' });
   } else {
-    res.render('error', { message: '投票してください。' });
+    res.render('error', { message: '投票してください' });
   }
 
 

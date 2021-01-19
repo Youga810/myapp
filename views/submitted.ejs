@@ -17,10 +17,11 @@
   </div>
   <h1 class="vote">投票画面</h1>
   <% if(name=='' ){ %>
-    既に投票済みです。
+    <p class="vote_msg already">既に投票済みです</p>
     <a href="../">戻る</a>
+    <a href="/result_view">結果を見る</a>
     <% } else{%>
-      <p>
+      <p class="vote_msg">
         <%- name %>さんに投票しました
       </p>
       <a href="/result_view">結果を見る</a>

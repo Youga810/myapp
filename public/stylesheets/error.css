@@ -1,0 +1,19 @@
+h1{
+  color: red;
+  text-align: center;
+  margin: 300px 0 80px 0;
+}
+
+.content{
+  text-align: center;
+}
+
+.open_time{
+margin-bottom: 40px;
+}
+
+a{
+  text-decoration: none;
+  border: #777 3px solid;
+  padding: 15px;
+}
