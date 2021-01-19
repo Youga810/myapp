@@ -96,15 +96,25 @@ class Blockchain {
     //b_num /= 2;
     return { a_num, b_num };
   }
+
+  //投票済みかチェック
   idcheck(id) {
+    //既にブロックチェーンにidが入っている(投票されている)場合
     for (var key in this.chain) {
       for (var value in this.chain[key]["transaction"]) {
-        console.log(this.chain[key]["transaction"][value]);
         if (this.chain[key]["transaction"][value]["voterid"] == id) {
           return false;
         }
       }
     }
+    //既にトランザクションプールにidが入っている(マイニングされていない状態)場合
+    for (var key of this.transaction_pool) {
+      if (key["voterid"] == id) {
+        return false;
+      }
+    }
+
+    //未投票の場合
     return true;
   }
   //クライアント側で計算させないと盗聴の恐れあり

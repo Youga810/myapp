@@ -1,0 +1,40 @@
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body{
+  margin: 0;
+  height: 100%;
+}
+
+.header{
+  background-color: #615b5b;
+  color: white;
+  border: none;
+  padding: 20px 40px;
+  position: relative;
+}
+
+h1.title{
+  margin-block-start: 0;
+  margin-block-end: 0;
+  float: left;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+}
+
+p.id{
+  text-align: right;
+}
+
+.vote{
+  padding: 20px 40px;
+  color:#615b5b;;
+}
+p{
+  font-size: large;
+  padding-top: 10px;
+  font-weight:bold;
+}

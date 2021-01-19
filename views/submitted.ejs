@@ -5,9 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>submitted</title>
+  <link rel='stylesheet' href='/stylesheets/submitted.css' />
+
 </head>
 
 <body>
+  <div class="header">
+    <h1 class="title">VoteApp</h1>
+    <p class="id">id: <%- id %>
+    </p>
+  </div>
+  <h1 class="vote">投票画面</h1>
   <% if(name=='' ){ %>
     既に投票済みです。
     <a href="../">戻る</a>

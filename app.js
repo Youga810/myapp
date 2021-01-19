@@ -12,7 +12,7 @@ var vote = new Blockchain();
 vote.startmining();
 //console.log(vote);
 console.log('now:', Date.now());
-exports.end_time = Date.now() + 1000000000;// 100秒後に閉鎖
+exports.end_time = Date.now() + 5000000;// 100秒後に閉鎖 マイニング終了後に閉鎖
 var app = express();
 
 //session使用
@@ -21,7 +21,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 60 * 1000
+    maxAge: 60 * 100//クッキーを24時間に指定
   }
 }));
 

@@ -11,51 +11,66 @@ router.get('/', function (req, res, next) {
 
 
 router.get('/vote', function (req, res, next) {
-  if (!result_view(res)) {
 
+  var session = req.session;
+  if (!session.user_id) res.redirect('/');
+  else {
+    if (!vote.idcheck(session.user_id)) {
 
-    var session = req.session;
-    if (session.login_flag) {
-      res.render('vote', { id: session.user_id });
-      console.log(session.user_id);
+      res.render('submitted', { id: session.user_id, name: '' });
     } else {
-      res.render('error', { message: 'ログインしてください' })
+      if (!result_view(res)) {
 
+
+        if (session.login_flag) {
+          res.render('vote', { id: session.user_id });
+          console.log(session.user_id);
+        } else {
+          res.render('error', { message: 'ログインしてください' })
+
+        }
+      }
     }
   }
+
 });
 
 
 router.post('/vote', function (req, res, next) {
-
-
+  var session = req.session;
   if (!result_view(res)) {
+    if (!vote.idcheck(session.user_id)) {
 
-
-    var session = req.session;
-    if (ca.login(req.body.id, req.body.password)) {
-      session.user_id = req.body.id;
-      session.login_flag = true;
-      //var key = ca.create_private_key(session.user_id);
-      //秘密鍵、公開鍵作成
-      //var private_key = JSON.stringify(key.toJSON());
-      //var public_key = ca.create_publickey(key);
-
-      //console.log('秘密鍵：', JSON.stringify(req.body.private_key));
-      // console.log('公開鍵：', publicKey);
-
-
-
-      res.render('vote',
-        {
-          id: session.user_id,
-          password: req.body.password,
-        });
+      res.render('submitted', { id: session.user_id, name: '' });
     } else {
-      res.redirect('/');
 
+      var session = req.session;
+
+      if (ca.login(req.body.id, req.body.password)) {
+        session.user_id = req.body.id;
+        session.login_flag = true;
+        //var key = ca.create_private_key(session.user_id);
+        //秘密鍵、公開鍵作成
+        //var private_key = JSON.stringify(key.toJSON());
+        //var public_key = ca.create_publickey(key);
+
+        //console.log('秘密鍵：', JSON.stringify(req.body.private_key));
+        // console.log('公開鍵：', publicKey);
+
+
+
+        res.render('vote',
+          {
+            id: session.user_id,
+            password: req.body.password,
+          });
+      } else {
+        res.redirect('/');
+
+      }
     }
   }
+
 });
 
 router.get('/result_view', function (req, res, next) {
@@ -76,39 +91,44 @@ router.get('/result_view', function (req, res, next) {
 
 router.post('/submitted', function (req, res, next) {
   if (!result_view(res)) {
-
-
     var session = req.session;
-    console.log(req.body.private_key);
-    //ca.verify(req.body.publicKey, req.body.signature);
-    if (!vote.idcheck(req.body.id)) {
 
-      res.render('submitted', { name: '' });
-    } else {
-      //電子署名
-      //var sign = vote.signTransaction(req.body.candidate, req.body.private_key);
-      var sign = req.body.signature;
-      console.log("sign:", sign);
-      var isValid = vote.verifyTransaction(req.body.candidate, sign, session.user_id);
-      if (isValid) {
-        vote.createNewTransaction(req.body.id, req.body.candidate);
-        session.candidate = req.body.candidate;
+    if (!session.user_id) res.redirect('/');
+    else {
+      session.signature = req.body.signature;
+      session.candidate = req.body.candidate;
+      //console.log(req.body.private_key);
+      //ca.verify(req.body.publicKey, req.body.signature);
+      if (!vote.idcheck(session.user_id)) {
+
+        res.render('submitted', { id: session.user_id, name: '' });
       } else {
-        console.log('電子署名に失敗しました。');
-        return res.render('error', { message: '電子署名に失敗しました。' });
+        //電子署名
+        //var sign = vote.signTransaction(req.body.candidate, req.body.private_key);
+        // var sign = req.body.signature;
+        var isValid = vote.verifyTransaction(session.candidate, session.signature, session.user_id);
+        if (isValid) {
+          vote.createNewTransaction(req.body.id, req.body.candidate);
+          console.log(vote.transaction_pool);
+          console.log(vote.chain);
+
+        } else {
+
+          console.log('電子署名に失敗しました。');
+          return res.render('error', { message: '電子署名に失敗しました。' });
+        }
+        res.render('submitted', { id: session.user_id, name: req.body.candidate });
+
+
+
+
+        //previous_hash = vote.getLastBlock()['previous_hash']
+        console.log(req.body.id);
+        //vote.getLastBlock();
+        //vote.mining();
+
+        //console.log(vote.getLastBlock()['transaction']);
       }
-
-      res.render('submitted', { name: req.body.candidate });
-
-
-
-
-      //previous_hash = vote.getLastBlock()['previous_hash']
-      console.log(req.body.id);
-      //vote.getLastBlock();
-      //vote.mining();
-
-      //console.log(vote.getLastBlock()['transaction']);
     }
   }
 });
@@ -116,8 +136,8 @@ router.post('/submitted', function (req, res, next) {
 router.get('/submitted', function (req, res, next) {
   var session = req.session;
   console.log(session.candidate)
-  if (!vote.idcheck(session.candidate)) {
-    res.render('submitted', { name: '' });
+  if (!vote.idcheck(session.user_id)) {
+    res.render('submitted', { id: req.body.id, name: '' });
   } else {
     res.render('error', { message: '投票してください。' });
   }
