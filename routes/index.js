@@ -79,6 +79,9 @@ router.get('/result_view', function (req, res, next) {
 
   if (Date.now() > app.end_time) {
 
+
+
+
     var cnt = vote.cnt();
     res.render('result_view', { vote: vote.chain, cnt: cnt })
   } else {

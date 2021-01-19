@@ -18,8 +18,10 @@
     "jsrsasign": "^10.1.4",
     "jsrsasign-util": "^1.0.2",
     "morgan": "~1.9.1",
+    "nodeplotlib": "^0.7.1",
     "pug": "2.0.0-beta11",
     "secp256k1": "^4.0.2",
     "sha256": "^0.2.0"
-  }
+  },
+  "devDependencies": {}
 }
