@@ -9,10 +9,17 @@
   <script language="JavaScript" type="text/javascript">
     function doSign() {
       var rsa = new RSAKey();
-      rsa.readPrivateKeyFromPEMString(document.form1.private_key.value);
-      var hashAlg = 'sha1';
-      var hSig = rsa.sign(document.form1.candidate.value, hashAlg);
-      document.form1.signature.value = linebrk(hSig, 64);
+      if (document.form1.private_key.value == "" || document.form1.candidate.value == "") {
+        alert('必要事項を記載してください。');
+        return false;
+      } else {
+        rsa.readPrivateKeyFromPEMString(document.form1.private_key.value);
+        var hashAlg = 'sha1';
+        var hSig = rsa.sign(document.form1.candidate.value, hashAlg);
+        document.form1.signature.value = linebrk(hSig, 64);
+        return true;
+      }
+
     }
   </script>
   <link rel='stylesheet' href='/stylesheets/vote.css' />
@@ -29,7 +36,7 @@
 
   <h1 class="vote">投票画面</h1>
   <div class="post">
-    <form action="/submitted" method="post" name="form1">
+    <form action="/submitted" method="post" name="form1" onSubmit="return doSign()">
       <input type="hidden" name="id" value=<%- id %>>
       <div class="radio_cls">
         <p>①立候補者</p>
@@ -45,7 +52,7 @@
       <textarea name="private_key"></textarea>
       <input type="hidden" name="signature">
       <!--<input type="file" name="private_key" size=10 accept=".key"></file> -->
-      <div><input type="submit" value="投票" onClick="doSign();"></div>
+      <div><input type="submit" value="投票"></div>
     </form>
   </div>
 </body>
