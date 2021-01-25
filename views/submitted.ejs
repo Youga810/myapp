@@ -12,7 +12,8 @@
 <body>
   <div class="header">
     <h1 class="title">VoteApp</h1>
-    <p class="id">id: <%- id %>
+    <p class="id">id: <%- id %> <input type="button" value="ログアウト" onclick="logout()">
+
     </p>
   </div>
   <h1 class="vote">投票画面</h1>
@@ -26,6 +27,12 @@
       </p>
       <a href="/result_view">結果を見る</a>
       <% } %>
+
+        <script>
+          function logout() {
+            window.location.href = '/logout';
+          }
+        </script>
 </body>
 
 </html>

@@ -4,8 +4,13 @@ var router = express.Router();
 var ca = require('../ca');
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
   console.log('index！');
+  if (req.session) {
+    req.session.destroy();
+    res.cookie("connect.sid", "", { expires: new Date() });
+  }
+  res.render('index', { title: 'Express' });
+
 });
 
 
@@ -144,6 +149,12 @@ router.get('/submitted', function (req, res, next) {
   }
 
 
+});
+
+router.get('/logout', function (req, res, next) {
+  req.session.destroy();
+  res.cookie("connect.sid", "", { expires: new Date() });
+  res.render('logout');
 });
 
 module.exports = router;
