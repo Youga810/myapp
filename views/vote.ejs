@@ -9,10 +9,6 @@
   <script language="JavaScript" type="text/javascript">
     function doSign() {
       var rsa = new RSAKey();
-      var sha1 = new KJUR.crypto.MessageDigest({ alg: "sha1", prov: "cryptojs" });
-      sha1.updateString(document.form1.candidate.value);
-      var sha1Hex = sha1.digest();
-      console.log(sha1Hex);
       if (document.form1.private_key.value == "" || document.form1.candidate.value == "") {
         alert('必要事項を記載してください。');
         return false;

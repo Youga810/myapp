@@ -135,17 +135,13 @@ class Blockchain {
     var user_data = JSON.parse(fs.readFileSync('./user_data.json', 'utf8'));
 
     var publickey;
-    //比較するため元メッセージをハッシュ化
-    var sha1Hex = crypto.createHash('sha1').update(candidate).digest('hex');
-    console.log('sha1:   ' + crypto.createHash('sha1').update(candidate).digest('hex'));
-
     console.log("id", id);
     user_data.forEach(element => {
       if (id == element.id) publickey = element.publickey;
     });
     console.log(publickey);
     var pubKey = rs.KEYUTIL.getKey(publickey);
-    return pubKey.verify(sha1Hex, hsig);
+    return pubKey.verify(candidate, hsig);
   }
 
 }
