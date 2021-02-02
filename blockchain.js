@@ -132,6 +132,7 @@ class Blockchain {
   verifyTransaction(candidate, hsig, id) {
     //jsonデータをそのまま読み込む
     var user_data = JSON.parse(fs.readFileSync('./user_data.json', 'utf8'));
+
     var publickey;
     console.log("id", id);
     user_data.forEach(element => {
