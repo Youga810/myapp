@@ -14,7 +14,7 @@
         return false;
       } else {
         rsa.readPrivateKeyFromPEMString(document.form1.private_key.value);
-        var hashAlg = 'sha1';
+        var hashAlg = 'sha256';
         var hSig = rsa.sign(document.form1.candidate.value, hashAlg);
         document.form1.signature.value = linebrk(hSig, 64);
         return true;
