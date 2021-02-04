@@ -10,7 +10,7 @@ class Blockchain {
     this.transaction_pool = [];
     this.createNewBlock('', 0, 0) //genesisブロックの生成
   }
-  createNewBlock(previous_hash, nonce = 100, hash) {
+  createNewBlock(previous_hash, nonce, hash) {
     const newBlock = {
       index: this.chain.length + 1,
       timestamp: Date.now(),
